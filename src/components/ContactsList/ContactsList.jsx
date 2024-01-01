@@ -1,20 +1,21 @@
-
 import { AiOutlineUserDelete } from 'react-icons/ai';
+import { BtnItem, List, ListItem } from './ContactsList.styled';
+
 export const ContactsList = ({ contacts, onDelete }) => {
   return (
-    <ul>
+    <List>
       {contacts.map(({ name, number, id }) => {
         return (
-          <li key={id}>
+          <ListItem key={id}>
             <span>{name}:</span>
             <span>{number}</span>
-            <button type="button" onClick={() => onDelete(id)}>
+            <BtnItem type="button" onClick={() => onDelete(id)}>
               <AiOutlineUserDelete />
               Delete
-            </button>
-          </li>
+            </BtnItem>
+          </ListItem>
         );
       })}
-    </ul>
+    </List>
   );
 };

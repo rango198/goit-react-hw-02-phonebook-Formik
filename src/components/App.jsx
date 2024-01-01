@@ -1,10 +1,10 @@
 import { Component } from 'react';
 import initialContacts from './contacts.json';
-import { Form } from './Form/Form';
-import { nanoid } from 'nanoid';
 import { ContactsList } from './ContactsList/ContactsList';
 import { Filter } from './filter/filter';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { ContactsForm } from './Form/ContactsForm';
+import { ContactsWrap, Container, PhoneWrap } from './App.styled';
 
 export class App extends Component {
   state = {
@@ -13,9 +13,6 @@ export class App extends Component {
   };
 
   addContacts = newContact => {
-    const id = nanoid();
-    const contactWithId = { ...newContact, id };
-
     this.state.contacts.filter(
       contact =>
         contact.name.toLowerCase().trim() ===
@@ -30,7 +27,7 @@ export class App extends Component {
         })
       : this.setState(prevState => {
           return {
-            contacts: [contactWithId, ...prevState.contacts],
+            contacts: [newContact, ...prevState.contacts],
           };
         });
   };
@@ -59,18 +56,20 @@ export class App extends Component {
     const { filter } = this.state;
 
     return (
-      <div>
-        <h1>Phonebook</h1>
-        <Form onSubmit={this.addContacts} />
-        <div>
+      <Container>
+        <PhoneWrap>
+          <h1>Phonebook</h1>
+          <ContactsForm addContacts={this.addContacts} />
+        </PhoneWrap>
+        <ContactsWrap>
           <h2>Contacts</h2>
           <Filter onChangeFilter={this.onChangeFilter} filter={filter} />
           <ContactsList
             contacts={visibleContacts}
             onDelete={this.onDeleteContacts}
           />
-        </div>
-      </div>
+        </ContactsWrap>
+      </Container>
     );
   }
 }

@@ -1,4 +1,5 @@
 import { IoIosSearch } from 'react-icons/io';
+import { Input } from './Filter.styled';
 
 export const Filter = ({ filter, onChangeFilter }) => {
   return (
@@ -7,7 +8,7 @@ export const Filter = ({ filter, onChangeFilter }) => {
         <IoIosSearch />
         Find contacts by name
       </div>
-      <input
+      <Input
         type="text"
         name="filter"
         value={filter}
